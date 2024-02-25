@@ -1,10 +1,10 @@
 const config = require('./src/config');
 
 module.exports = {
+  pathPrefix: '/asl3',
   siteMetadata: {
     title: 'Amanda Liu',
-    description:
-      'Amanda Liu is a software engineer who specializes in open source development.',
+    description: 'Amanda Liu is a software engineer who specializes in open source development.',
     siteUrl: 'https://asl3.github.io', // No trailing slash allowed!
     image: '/og.png', // Path to your image you placed in the 'static' folder
     twitterUsername: '',
