@@ -108,7 +108,7 @@ const Footer = () => {
         <a href="https://github.com/asl3">
           <div>Built by Amanda Liu</div>
           <br></br>
-          <div>Theme by Brittany Chiang</div>
+          <div>Theme Inspo from Brittany Chiang</div>
         </a>
       </StyledCredit>
     </StyledFooter>
