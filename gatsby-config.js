@@ -22,7 +22,7 @@ module.exports = {
       options: {
         name: 'Amanda Liu',
         short_name: 'Amanda Liu',
-        start_url: '',
+        start_url: '/',
         background_color: config.colors.linen,
         theme_color: config.colors.linen,
         display: 'minimal-ui',
@@ -77,7 +77,7 @@ module.exports = {
               maxWidth: 700,
               linkImagesToOriginal: true,
               quality: 90,
-              tracedSVG: { color: config.colors.green },
+              // tracedSVG: { color: config.colors.green },
             },
           },
           {
