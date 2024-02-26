@@ -1,12 +1,12 @@
 const config = require('./src/config');
 
 module.exports = {
-  pathPrefix: '/asl3',
+  pathPrefix: '',
   siteMetadata: {
     title: 'Amanda Liu',
     description: 'Amanda Liu is a software engineer who specializes in open source development.',
     siteUrl: 'https://asl3.github.io', // No trailing slash allowed!
-    image: '/og.png', // Path to your image you placed in the 'static' folder
+    image: 'og.png', // Path to your image you placed in the 'static' folder
     twitterUsername: '',
   },
   plugins: [
@@ -22,7 +22,7 @@ module.exports = {
       options: {
         name: 'Amanda Liu',
         short_name: 'Amanda Liu',
-        start_url: '/',
+        start_url: '',
         background_color: config.colors.linen,
         theme_color: config.colors.linen,
         display: 'minimal-ui',
