@@ -82,7 +82,7 @@ const Hero = () => {
   const five = (
     <a
       className="email-link"
-      href="https://github.com/asl3"
+      href="https://mandymade.digitalpress.blog/"
       target="_blank"
       rel="noreferrer">
       Check out my blog!
