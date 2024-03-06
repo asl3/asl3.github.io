@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import anime from 'animejs';
 import styled from 'styled-components';
-import { IconLoader } from '@components/icons';
 
 const StyledLoader = styled.div`
   ${({ theme }) => theme.mixins.flexCenter};
@@ -40,7 +39,13 @@ const StyledLoader = styled.div`
 const Loader = ({ finishLoading }) => {
   const [isMounted, setIsMounted] = useState(false);
 
-  const animate = () => {
+  useEffect(() => {
+    const timeout = setTimeout(() => setIsMounted(true), 10);
+    animate();
+    return () => clearTimeout(timeout);
+  }, []);
+
+  function animate() {
     const loader = anime.timeline({
       complete: () => finishLoading(),
     });
@@ -74,12 +79,21 @@ const Loader = ({ finishLoading }) => {
         opacity: 0,
         zIndex: -1,
       });
-  };
+  }
+
+  // Typewriter effect
+  function typeWriter(text, i) {
+    if (i < text.length) {
+      setText(prevText => prevText + text.charAt(i));
+      i++;
+      setTimeout(() => typeWriter(text, i), 100);
+    }
+  }
+
+  const [text, setText] = useState('');
 
   useEffect(() => {
-    const timeout = setTimeout(() => setIsMounted(true), 10);
-    animate();
-    return () => clearTimeout(timeout);
+    typeWriter('welcome to my site', 0);
   }, []);
 
   return (
@@ -87,7 +101,7 @@ const Loader = ({ finishLoading }) => {
       <Helmet bodyAttributes={{ class: `hidden` }} />
 
       <div className="logo-wrapper">
-        welcome to my site
+        {text}
       </div>
     </StyledLoader>
   );
