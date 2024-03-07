@@ -56,7 +56,7 @@ const StyledProject = styled.li`
         padding: 25px 25px 20px;
       }
     }
-    .project-tech-list {
+    .project-keywords-list {
       justify-content: flex-end;
 
       @media (max-width: 768px) {
@@ -181,7 +181,7 @@ const StyledProject = styled.li`
     }
   }
 
-  .project-tech-list {
+  .project-keywords-list {
     display: flex;
     flex-wrap: wrap;
     position: relative;
@@ -319,7 +319,7 @@ const Featured = () => {
                   gatsbyImageData(width: 700, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
                 }
               }
-              tech
+              keywords
               github
               external
               cta
@@ -348,21 +348,21 @@ const Featured = () => {
   return (
     <section id="projects">
       <h2 className="numbered-heading" ref={revealTitle}>
-        Blog Posts
+        Featured Blog Posts
       </h2>
 
       <StyledProjectsGrid>
         {featuredProjects &&
           featuredProjects.map(({ node }, i) => {
             const { frontmatter, html } = node;
-            const { external, title, tech, github, cover, cta } = frontmatter;
+            const { external, title, keywords, github, cover, cta } = frontmatter;
             const image = getImage(cover);
 
             return (
               <StyledProject key={i} ref={el => (revealProjects.current[i] = el)}>
                 <div className="project-content">
                   <div>
-                    <p className="project-overline">Featured Blog</p>
+                    <p className="project-overline">Restaurant review</p>
 
                     <h3 className="project-title">
                       <a href={external}>{title}</a>
@@ -373,10 +373,10 @@ const Featured = () => {
                       dangerouslySetInnerHTML={{ __html: html }}
                     />
 
-                    {tech.length && (
-                      <ul className="project-tech-list">
-                        {tech.map((tech, i) => (
-                          <li key={i}>{tech}</li>
+                    {keywords.length && (
+                      <ul className="project-keywords-list">
+                        {keywords.map((keywords, i) => (
+                          <li key={i}>{keywords}</li>
                         ))}
                       </ul>
                     )}
