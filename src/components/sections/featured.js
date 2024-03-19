@@ -4,8 +4,11 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import sr from '@utils/sr';
 import { srConfig } from '@config';
-import { Icon } from '@components/icons';
+import { Icon, IconStar } from '@components/icons';
 import { usePrefersReducedMotion } from '@hooks';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const StyledProjectsGrid = styled.ul`
   ${({ theme }) => theme.mixins.resetList};
@@ -303,6 +306,117 @@ const StyledProject = styled.li`
   }
 `;
 
+// const Featured = () => {
+//   const data = useStaticQuery(graphql`
+//     {
+//       featured: allMarkdownRemark(
+//         filter: { fileAbsolutePath: { regex: "/content/featured/" } }
+//         sort: { fields: [frontmatter___date], order: ASC }
+//       ) {
+//         edges {
+//           node {
+//             frontmatter {
+//               title
+//               cover {
+//                 childImageSharp {
+//                   gatsbyImageData(width: 700, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+//                 }
+//               }
+//               keywords
+//               github
+//               external
+//               cta
+//             }
+//             html
+//           }
+//         }
+//       }
+//     }
+//   `);
+
+//   const featuredProjects = data.featured.edges.filter(({ node }) => node);
+//   const revealTitle = useRef(null);
+//   const revealProjects = useRef([]);
+//   const prefersReducedMotion = usePrefersReducedMotion();
+
+//   useEffect(() => {
+//     if (prefersReducedMotion) {
+//       return;
+//     }
+
+//     sr.reveal(revealTitle.current, srConfig());
+//     revealProjects.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 100)));
+//   }, []);
+
+//   return (
+//     <section id="projects">
+//       <h2 className="numbered-heading" ref={revealTitle}>
+//         Featured Blog Posts
+//       </h2>
+
+//       <StyledProjectsGrid>
+//         {featuredProjects &&
+//           featuredProjects.map(({ node }, i) => {
+//             const { frontmatter, html } = node;
+//             const { external, title, keywords, github, cover, cta } = frontmatter;
+//             const image = getImage(cover);
+
+//             return (
+//               <StyledProject key={i} ref={el => (revealProjects.current[i] = el)}>
+//                 <div className="project-content">
+//                   <div>
+//                     <p className="project-overline">Restaurant review</p>
+
+//                     <h3 className="project-title">
+//                       <a href={external}>{title}</a>
+//                     </h3>
+
+//                     <div
+//                       className="project-description"
+//                       dangerouslySetInnerHTML={{ __html: html }}
+//                     />
+
+//                     {keywords.length && (
+//                       <ul className="project-keywords-list">
+//                         {keywords.map((keywords, i) => (
+//                           <li key={i}>{keywords}</li>
+//                         ))}
+//                       </ul>
+//                     )}
+
+//                     <div className="project-links">
+//                       {cta && (
+//                         <a href={cta} aria-label="Course Link" className="cta">
+//                           Learn More
+//                         </a>
+//                       )}
+//                       {github && (
+//                         <a href={github} aria-label="GitHub Link">
+//                           <Icon name="GitHub" />
+//                         </a>
+//                       )}
+//                       {external && !cta && (
+//                         <a href={external} aria-label="External Link" className="external">
+//                           <Icon name="External" />
+//                         </a>
+//                       )}
+//                     </div>
+//                   </div>
+//                 </div>
+
+//                 <div className="project-image">
+//                   <a href={external ? external : github ? github : '#'}>
+//                     <GatsbyImage image={image} alt={title} className="img" />
+//                   </a>
+//                 </div>
+//               </StyledProject>
+//             );
+//           })}
+//       </StyledProjectsGrid>
+//     </section>
+//   );
+// };
+
 const Featured = () => {
   const data = useStaticQuery(graphql`
     {
@@ -336,14 +450,41 @@ const Featured = () => {
   const revealProjects = useRef([]);
   const prefersReducedMotion = usePrefersReducedMotion();
 
+  // const NextArrow = props => {
+  //   const { className, style, onClick } = props;
+  //   return (
+  //     <div className={className} style={{ ...style, display: 'block' }} onClick={onClick}>
+  //       <Icon name="ArrowRight" />
+  //     </div>
+  //   );
+  // };
+
+  // const PrevArrow = props => {
+  //   const { className, style, onClick } = props;
+  //   return (
+  //     <div className={className} style={{ ...style, display: 'block' }} onClick={onClick}>
+  //       <Icon name="ArrowLeft" />
+  //     </div>
+  //   );
+  // };
+
   useEffect(() => {
     if (prefersReducedMotion) {
       return;
     }
 
-    sr.reveal(revealTitle.current, srConfig());
     revealProjects.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 100)));
   }, []);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: <IconStar />,
+    prevArrow: <IconStar />,
+  };
 
   return (
     <section id="projects">
@@ -351,7 +492,7 @@ const Featured = () => {
         Featured Blog Posts
       </h2>
 
-      <StyledProjectsGrid>
+      <Slider {...sliderSettings}>
         {featuredProjects &&
           featuredProjects.map(({ node }, i) => {
             const { frontmatter, html } = node;
@@ -362,7 +503,7 @@ const Featured = () => {
               <StyledProject key={i} ref={el => (revealProjects.current[i] = el)}>
                 <div className="project-content">
                   <div>
-                    <p className="project-overline">Restaurant review</p>
+                    <p className="project-overline">Featured Blog Post</p>
 
                     <h3 className="project-title">
                       <a href={external}>{title}</a>
@@ -375,8 +516,8 @@ const Featured = () => {
 
                     {keywords.length && (
                       <ul className="project-keywords-list">
-                        {keywords.map((keywords, i) => (
-                          <li key={i}>{keywords}</li>
+                        {keywords.map((keyword, j) => (
+                          <li key={j}>{keyword}</li>
                         ))}
                       </ul>
                     )}
@@ -409,7 +550,7 @@ const Featured = () => {
               </StyledProject>
             );
           })}
-      </StyledProjectsGrid>
+      </Slider>
     </section>
   );
 };
