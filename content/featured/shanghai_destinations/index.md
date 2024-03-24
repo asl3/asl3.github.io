@@ -1,7 +1,7 @@
 ---
 date: '2'
 title: 'Shanghai Travel Destinations'
-cover: './shanghai_cover.jpg'
+cover: './shanghai_cover.png'
 github: ''
 external: 'https://mandymade.digitalpress.blog/shanghai-destinations/'
 keywords:

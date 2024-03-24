@@ -362,7 +362,7 @@ const Featured = () => {
               <StyledProject key={i} ref={el => (revealProjects.current[i] = el)}>
                 <div className="project-content">
                   <div>
-                    <p className="project-overline">Restaurant review</p>
+                    <p className="project-overline">Blog</p>
 
                     <h3 className="project-title">
                       <a href={external}>{title}</a>
